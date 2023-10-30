@@ -9,7 +9,8 @@ enum ferris_layers {
     _NUM,
     _ESCAPE,
     _WM,
-    _TMUX
+    _TMUX,
+    _NVIM
 };
 
 enum custom_keycodes {
@@ -22,7 +23,17 @@ enum custom_keycodes {
     SS_TMUX_7,
     SS_TMUX_8,
     SS_TMUX_9,
-    SS_TESC
+    SS_TESC,
+    SS_NVIM_TREE,
+    SS_NVIM_WU,
+    SS_NVIM_GIT,
+    SS_NVIM_WC,
+    SS_NVIM_SAVE,
+    SS_NVIM_WL,
+    SS_NVIM_WD,
+    SS_NVIM_WR,
+    SS_NVIM_WS,
+    SS_NVIM_WV
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -77,6 +88,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTL("]["));
             }
             break;
+
+        case SS_NVIM_WU:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "k");
+            }
+            break;
+        case SS_NVIM_WD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "j");
+            }
+            break;
+        case SS_NVIM_WL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "h");
+            }
+            break;
+        case SS_NVIM_WR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "l");
+            }
+            break;
+        case SS_NVIM_WC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "q");
+            }
+            break;
+        case SS_NVIM_WS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "s");
+            }
+            break;
+        case SS_NVIM_WV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("w") "v");
+            }
+            break;
+        case SS_NVIM_GIT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT("g"));
+            }
+            break;
+        case SS_NVIM_TREE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("n"));
+            }
+            break;
+        case SS_NVIM_SAVE:
+            if (record->event.pressed) {
+                SEND_STRING("\\\\");
+            }
+            break;
     }
 
     return true;
@@ -109,6 +171,7 @@ bool caps_word_press_user(uint16_t keycode) {
 #define   KC_ESCAPE_SPC   LT(_ESCAPE,KC_SPC)
 #define   KC_WM_1         LT(_WM,KC_P1)
 #define   KC_FKEYS_S      LT(_FKEYS,KC_S)
+#define   KC_NVIM_D       LT(_NVIM,KC_D)
 
 #define   KC_CTLR_X       LCTL_T(KC_X)
 #define   KC_CTLR_DOT     LCTL_T(KC_DOT)
@@ -133,7 +196,7 @@ bool caps_word_press_user(uint16_t keycode) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_Q       , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
-        KC_SHIFT_A , KC_FKEYS_S , KC_D          , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
+        KC_SHIFT_A , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
         KC_Z       , KC_CTLR_X  , KC_ALT_C      , KC_V         , KC_B , KC_N , KC_M         , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
         KC_TMUX_1  , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_1
     ),
@@ -141,6 +204,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______ , KC_HOME , KC_UP   , KC_END  , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______ , KC_LEFT , KC_DOWN , KC_RGHT , _______ , _______ , KC_LGUI , XXXXXXX , _______ , _______ ,
         _______ , KC_PGDN , _______ , KC_PGUP , _______ , _______ , _______ , _______ , _______ , _______ ,
+        _______ , _______ , _______ , _______
+    ),
+    [_NVIM] = LAYOUT(
+        _______ , _______ , _______ , _______ , _______ , _______      , SS_NVIM_TREE , SS_NVIM_WU , SS_NVIM_GIT , SS_NVIM_WC ,
+        _______ , _______ , XXXXXXX , _______ , _______ , SS_NVIM_SAVE , SS_NVIM_WL   , SS_NVIM_WD , SS_NVIM_WR  , _______    ,
+        _______ , _______ , _______ , _______ , _______ , _______      , SS_NVIM_WS   , _______    , SS_NVIM_WV  , _______    ,
         _______ , _______ , _______ , _______
     ),
     [_SYMBOLR] = LAYOUT(
