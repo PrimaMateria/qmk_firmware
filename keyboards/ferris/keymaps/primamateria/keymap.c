@@ -23,6 +23,8 @@ enum custom_keycodes {
     SS_TMUX_7,
     SS_TMUX_8,
     SS_TMUX_9,
+    SS_TMUX_O,
+    SS_TMUX_PERC,
     SS_TESC,
     SS_NVIM_TREE,
     SS_NVIM_WU,
@@ -33,7 +35,9 @@ enum custom_keycodes {
     SS_NVIM_WD,
     SS_NVIM_WR,
     SS_NVIM_WS,
-    SS_NVIM_WV
+    SS_NVIM_WV,
+    SS_COPY,
+    SS_PASTE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -81,6 +85,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SS_TMUX_9:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL("b") "9");
+            }
+            break;
+        case SS_TMUX_O:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("b") "o");
+            }
+            break;
+        case SS_TMUX_PERC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("b") "%");
             }
             break;
         case SS_TESC:
@@ -139,6 +153,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("\\\\");
             }
             break;
+        case SS_COPY:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("c"));
+            }
+            break;
+        case SS_PASTE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("v"));
+            }
+            break;
     }
 
     return true;
@@ -167,9 +191,9 @@ bool caps_word_press_user(uint16_t keycode) {
 #define   KC_SYMBOLL_J    LT(_SYMBOLL,KC_J)
 #define   KC_NAV_K        LT(_NAV,KC_K)
 #define   KC_NUM_L        LT(_NUM,KC_L)
-#define   KC_TMUX_1       LT(_TMUX,KC_P1)
+#define   KC_TMUX_PASTE   LT(_TMUX,SS_PASTE)
 #define   KC_ESCAPE_SPC   LT(_ESCAPE,KC_SPC)
-#define   KC_WM_1         LT(_WM,KC_P1)
+#define   KC_WM_COPY      LT(_WM,SS_COPY)
 #define   KC_FKEYS_S      LT(_FKEYS,KC_S)
 #define   KC_NVIM_D       LT(_NVIM,KC_D)
 
@@ -195,10 +219,10 @@ bool caps_word_press_user(uint16_t keycode) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_Q       , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
-        KC_SHIFT_A , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
-        KC_Z       , KC_CTLR_X  , KC_ALT_C      , KC_V         , KC_B , KC_N , KC_M         , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
-        KC_TMUX_1  , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_1
+        KC_Q          , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
+        KC_SHIFT_A    , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
+        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_V         , KC_B , KC_N , KC_M         , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
+        KC_TMUX_PASTE , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_COPY
     ),
     [_NAV] = LAYOUT(
         _______ , KC_HOME , KC_UP   , KC_END  , _______ , _______ , _______ , _______ , _______ , _______ ,
@@ -249,9 +273,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______  , _______  , _______  , XXXXXXX
     ),
     [_TMUX] = LAYOUT(
-        _______ , _______ , _______ , _______ , _______ , _______ , SS_TMUX_7 , SS_TMUX_8 , SS_TMUX_9 , _______ ,
-        _______ , _______ , _______ , _______ , _______ , _______ , SS_TMUX_4 , SS_TMUX_5 , SS_TMUX_6 , _______ ,
-        _______ , _______ , _______ , _______ , _______ , _______ , SS_TMUX_1 , SS_TMUX_2 , SS_TMUX_3 , _______ ,
+        _______ , _______ , _______ , _______ , _______ , _______   , SS_TMUX_7 , SS_TMUX_8 , SS_TMUX_9 , _______      ,
+        _______ , _______ , _______ , _______ , _______ , SS_TMUX_O , SS_TMUX_4 , SS_TMUX_5 , SS_TMUX_6 , SS_TMUX_PERC ,
+        _______ , _______ , _______ , _______ , _______ , _______   , SS_TMUX_1 , SS_TMUX_2 , SS_TMUX_3 , _______      ,
         XXXXXXX , _______ , _______ , _______
     ),
 };
