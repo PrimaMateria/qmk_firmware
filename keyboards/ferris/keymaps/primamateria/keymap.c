@@ -36,6 +36,7 @@ enum custom_keycodes {
     SS_NVIM_WR,
     SS_NVIM_WS,
     SS_NVIM_WV,
+    SS_WINBAR,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -151,6 +152,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("\\\\");
             }
             break;
+        case SS_WINBAR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LWIN) SS_TAP(X_F11) SS_UP(X_LWIN) SS_UP(X_LCTL));
+            }
+            break;
     }
 
     return true;
@@ -250,13 +256,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ESCAPE] = LAYOUT(
         _______ , _______ , SS_TESC , KC_ESC  , _______ , _______ , _______ , _______ , _______ , QK_BOOT ,
-        CW_TOGG , _______ , _______ , KC_ENT  , _______ , _______ , KC_DEL  , _______ , _______ , _______ ,
+        CW_TOGG , _______ , KC_DEL  , KC_ENT  , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______ , KC_TAB  , XXXXXXX , _______
     ),
     [_WM] = LAYOUT(
         _______  , KC_ALT_7 , KC_ALT_8 , KC_ALT_9 , _______ , _______ , _______ , _______ , _______ , _______ ,
-        _______  , KC_ALT_4 , KC_ALT_5 , KC_ALT_6 , _______ , _______ , _______ , _______ , _______ , _______ ,
+        _______  , KC_ALT_4 , KC_ALT_5 , KC_ALT_6 , _______ , _______ , _______ , _______ , _______ , SS_WINBAR ,
         KC_ALT_0 , KC_ALT_1 , KC_ALT_2 , KC_ALT_3 , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______  , _______  , _______  , XXXXXXX
     ),
