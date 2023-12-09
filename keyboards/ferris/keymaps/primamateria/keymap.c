@@ -211,6 +211,12 @@ bool caps_word_press_user(uint16_t keycode) {
 #define   KC_ALT_8   LALT(KC_8)
 #define   KC_ALT_9   LALT(KC_9)
 
+#define   KC_LOCK   LWIN(KC_L)
+#define   DMENU   LALT(KC_BSPC)
+#define   COPY   RCTL(KC_C)
+#define   PASTE   RCTL(KC_V)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_Q          , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
@@ -255,10 +261,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______ , _______ , _______ , _______
     ),
     [_ESCAPE] = LAYOUT(
-        _______ , _______ , SS_TESC , KC_ESC  , _______ , _______ , _______ , _______ , _______ , QK_BOOT ,
-        CW_TOGG , _______ , KC_DEL  , KC_ENT  , _______ , _______ , _______ , _______ , _______ , _______ ,
-        _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ ,
-        _______ , KC_TAB  , XXXXXXX , _______
+        KC_CAPS , _______ , SS_TESC , KC_ESC  , _______ , _______ , _______ , _______ , _______ , QK_BOOT ,
+        CW_TOGG , _______ , KC_DEL  , KC_ENT  , DMENU   , _______ , _______ , _______ , _______ , _______ ,
+        _______ , _______ , COPY    , PASTE   , _______ , _______ , _______ , _______ , _______ , _______ ,
+        _______ , KC_TAB  , XXXXXXX , KC_LOCK
     ),
     [_WM] = LAYOUT(
         _______  , KC_ALT_7 , KC_ALT_8 , KC_ALT_9 , _______ , _______ , _______ , _______ , _______ , _______ ,
