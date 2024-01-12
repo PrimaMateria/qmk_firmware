@@ -16,14 +16,15 @@
         devShell = pkgs.mkShell rec {
           name = "nix.shell.qmk.primamateria";
           packages = with pkgs; [
+            qmk
             gnumake
             gcc
             gcc-arm-embedded
           ];
 
           shellHook = ''
-            alias left="make CONVERT_TO=promicro_rp2040 ferris/sweep:sweep:primamateria:uf2-split-left"
-            alias right="make CONVERT_TO=promicro_rp2040 ferris/sweep:sweep:primamateria:uf2-split-right"
+            alias left="make CONVERT_TO=promicro_rp2040 ferris/sweep:primamateria:uf2-split-left"
+            alias right="make CONVERT_TO=promicro_rp2040 ferris/sweep:primamateria:uf2-split-right"
             alias edit="nvim ./keyboards/ferris"
 
             echo "${name} started"
