@@ -212,9 +212,8 @@ bool caps_word_press_user(uint16_t keycode) {
 #define   KC_ALT_9   LALT(KC_9)
 
 #define   KC_LOCK   LWIN(KC_L)
-#define   DMENU   LALT(KC_BSPC)
-#define   COPY   RCTL(KC_C)
-#define   PASTE   RCTL(KC_V)
+#define   DMENU     LALT(KC_BSPC)
+#define   REGION    RCTL(KC_PRINT_SCREEN)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -261,9 +260,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______ , _______ , _______ , _______
     ),
     [_ESCAPE] = LAYOUT(
-        KC_CAPS , _______ , SS_TESC , KC_ESC  , _______ , _______ , _______ , _______ , _______ , QK_BOOT ,
+        KC_CAPS , _______ , SS_TESC , KC_ESC  , _______ , REGION  , _______ , _______ , _______ , QK_BOOT ,
         CW_TOGG , _______ , KC_DEL  , KC_ENT  , DMENU   , _______ , _______ , _______ , _______ , _______ ,
-        _______ , _______ , COPY    , PASTE   , _______ , _______ , _______ , _______ , _______ , _______ ,
+        _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______ , KC_TAB  , XXXXXXX , KC_LOCK
     ),
     [_WM] = LAYOUT(
