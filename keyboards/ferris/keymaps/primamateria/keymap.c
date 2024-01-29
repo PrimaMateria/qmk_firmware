@@ -157,11 +157,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LWIN) SS_TAP(X_F11) SS_UP(X_LWIN) SS_UP(X_LCTL));
             }
             break;
-        case SS_EURO:
-            if (record->event.pressed) {
-                SEND_STRING("€");
-            }
-            break;
     }
 
     return true;
@@ -185,6 +180,14 @@ bool caps_word_press_user(uint16_t keycode) {
             return false;  // Deactivate Caps Word.
     }
 }
+
+enum unicode_names {
+    EURO,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [EURO]  = 0x20AC,  // €
+};
 
 #define   KC_SYMBOLR_F    LT(_SYMBOLR,KC_F)
 #define   KC_SYMBOLL_J    LT(_SYMBOLL,KC_J)
@@ -262,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSLS , KC_7    , KC_8    , KC_9    , KC_PPLS , _______ , _______ , _______ , _______ , _______ ,
         KC_PAST , KC_4    , KC_5    , KC_6    , KC_PMNS , _______ , _______ , _______ , XXXXXXX , _______ ,
         KC_0    , KC_1    , KC_2    , KC_3    , KC_PEQL , _______ , _______ , _______ , _______ , _______ ,
-        KC_0    , _______ , _______ , SS_EURO
+        KC_0    , _______ , _______ , UM(EURO)
     ),
     [_ESCAPE] = LAYOUT(
         KC_CAPS , _______ , SS_TESC , KC_ESC  , _______ , REGION  , _______ , _______ , _______ , QK_BOOT ,
