@@ -222,7 +222,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #define   KC_LOCK   LWIN(KC_L)
 #define   DMENU     LALT(KC_BSPC)
 #define   REGION    RCTL(KC_PRINT_SCREEN)
-#define   CLR_PICK  KC_PRINT_SCREEN
+#define   CLR_PICK  LALT(KC_PRINT_SCREEN)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
