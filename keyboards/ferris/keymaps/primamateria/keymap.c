@@ -2,6 +2,7 @@
 
 enum ferris_layers {
     _QWERTY,
+    _SK,
     _NAV,
     _SYMBOLR,
     _SYMBOLL,
@@ -152,11 +153,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("\\\\");
             }
             break;
-        case SS_WINBAR:
-            if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LWIN) SS_TAP(X_F11) SS_UP(X_LWIN) SS_UP(X_LCTL));
-            }
-            break;
     }
 
     return true;
@@ -183,10 +179,62 @@ bool caps_word_press_user(uint16_t keycode) {
 
 enum unicode_names {
     EURO,
+    A_ACUTE_SMALL,
+    A_ACUTE_BIG,
+    C_CARON_SMALL,
+    C_CARON_BIG,
+    D_CARON_SMALL,
+    D_CARON_BIG,
+    E_ACUTE_SMALL,
+    E_ACUTE_BIG,
+    I_ACUTE_SMALL,
+    I_ACUTE_BIG,
+    L_CARON_SMALL,
+    L_CARON_BIG,
+    N_CARON_SMALL,
+    N_CARON_BIG,
+    O_ACUTE_SMALL,
+    O_ACUTE_BIG,
+    S_CARON_SMALL,
+    S_CARON_BIG,
+    T_CARON_SMALL,
+    T_CARON_BIG,
+    U_ACUTE_SMALL,
+    U_ACUTE_BIG,
+    Y_ACUTE_BIG,
+    Y_ACUTE_SMALL,
+    Z_CARON_SMALL,
+    Z_CARON_BIG,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
     [EURO]  = 0x20AC,  // €
+    [A_ACUTE_SMALL] = 0x00E1, // á
+    [A_ACUTE_BIG]   = 0x00C1, // Á
+    [C_CARON_SMALL] = 0x010D, // č
+    [C_CARON_BIG]   = 0x010C, // Č
+    [D_CARON_SMALL] = 0x010F, // ď
+    [D_CARON_BIG]   = 0x010E, // Ď
+    [E_ACUTE_SMALL] = 0x00E9, // é
+    [E_ACUTE_BIG]   = 0x00C9, // É
+    [I_ACUTE_SMALL] = 0x00ED, // í
+    [I_ACUTE_BIG]   = 0x00CD, // áí TODO: shift on a is gone, split layer SK to left and right
+    [L_CARON_SMALL] = 0x013E, // ľ
+    [L_CARON_BIG]   = 0x013D, // á
+    [N_CARON_SMALL] = 0x0148, //
+    [N_CARON_BIG]   = 0x0147, //
+    [O_ACUTE_SMALL] = 0x00F3, //
+    [O_ACUTE_BIG]   = 0x00D3, //
+    [S_CARON_SMALL] = 0x0161, //
+    [S_CARON_BIG]   = 0x0160, //
+    [T_CARON_SMALL] = 0x0165, //
+    [T_CARON_BIG]   = 0x0164, //
+    [U_ACUTE_SMALL] = 0x00FA, //
+    [U_ACUTE_BIG]   = 0x00DA, //
+    [Y_ACUTE_BIG]   = 0x00DD, //
+    [Y_ACUTE_SMALL] = 0x00FD, //
+    [Z_CARON_SMALL] = 0x017D, //
+    [Z_CARON_BIG]   = 0x017E, //
 };
 
 #define   KC_SYMBOLR_F    LT(_SYMBOLR,KC_F)
@@ -198,6 +246,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #define   KC_WM_NO        LT(_WM,KC_NO)
 #define   KC_FKEYS_S      LT(_FKEYS,KC_S)
 #define   KC_NVIM_D       LT(_NVIM,KC_D)
+#define   KC_SK_V         LT(_SK,KC_V)
+#define   KC_SK_M         LT(_SK,KC_M)
 
 #define   KC_CTLR_X       LCTL_T(KC_X)
 #define   KC_CTLR_DOT     LCTL_T(KC_DOT)
@@ -229,8 +279,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_Q          , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
         KC_SHIFT_A    , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
-        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_V         , KC_B , KC_N , KC_M         , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
+        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_SK_V      , KC_B , KC_N , KC_SK_M      , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
         KC_TMUX_NO    , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_NO
+    ),
+    [_SK] = LAYOUT(
+        // row 1
+        _______,
+        _______,
+        UP(E_ACUTE_SMALL, E_ACUTE_BIG),
+        _______,
+        UP(T_CARON_SMALL, T_CARON_BIG),
+        UP(Y_ACUTE_SMALL, Y_ACUTE_BIG),
+        UP(U_ACUTE_SMALL, U_ACUTE_BIG),
+        UP(I_ACUTE_SMALL, I_ACUTE_BIG),
+        UP(O_ACUTE_SMALL, O_ACUTE_BIG),
+        _______,
+
+        // row 2
+        UP(A_ACUTE_SMALL, A_ACUTE_BIG),
+        UP(S_CARON_SMALL, S_CARON_BIG),
+        UP(D_CARON_SMALL, D_CARON_BIG),
+        _______,
+        _______,
+        _______,
+        _______,
+        _______,
+        UP(L_CARON_SMALL, L_CARON_BIG),
+        _______,
+
+        // row 3
+        UP(Z_CARON_SMALL, Z_CARON_BIG),
+        _______,
+        UP(C_CARON_SMALL, C_CARON_BIG),
+        _______,
+        _______,
+        UP(N_CARON_SMALL, N_CARON_BIG),
+        _______,
+        _______,
+        _______,
+        _______,
+
+        // row 4
+        _______    , _______    , _______ , _______
     ),
     [_NAV] = LAYOUT(
         _______ , KC_HOME , KC_UP   , KC_END  , _______ , _______ , _______ , _______ , _______ , _______ ,
@@ -245,7 +335,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______ , _______ , _______ , _______
     ),
     [_SYMBOLR] = LAYOUT(
-        _______ , _______ , _______ , _______ , _______ , _______ , KC_UNDS , KC_PIPE , KC_QUOT , _______ ,
+        _______ , _______ , _______ , _______ , _______ , _______ , KC_UNDS , KC_PIPE , KC_QUOT , UM(EURO),
         KC_CIRC , KC_ASTR , KC_AMPR , XXXXXXX , _______ , KC_HASH , KC_TILD , KC_SLSH , KC_DQUO , KC_DLR  ,
         _______ , _______ , _______ , _______ , _______ , _______ , KC_MINS , KC_BSLS , KC_GRV  , _______ ,
         _______ , _______ , _______ , _______
@@ -266,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSLS , KC_7    , KC_8    , KC_9    , KC_PPLS , _______ , _______ , _______ , _______ , _______ ,
         KC_PAST , KC_4    , KC_5    , KC_6    , KC_PMNS , _______ , _______ , _______ , XXXXXXX , _______ ,
         KC_0    , KC_1    , KC_2    , KC_3    , KC_PEQL , _______ , _______ , _______ , _______ , _______ ,
-        KC_0    , _______ , _______ , UM(EURO)
+        KC_0    , _______ , _______ , _______
     ),
     [_ESCAPE] = LAYOUT(
         KC_CAPS , _______ , SS_TESC , KC_ESC  , _______ , REGION  , _______ , _______ , _______ , QK_BOOT ,
@@ -276,7 +366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_WM] = LAYOUT(
         _______  , KC_ALT_7 , KC_ALT_8 , KC_ALT_9 , _______ , _______ , _______ , _______ , _______ , _______ ,
-        _______  , KC_ALT_4 , KC_ALT_5 , KC_ALT_6 , _______ , _______ , _______ , _______ , _______ , SS_WINBAR ,
+        _______  , KC_ALT_4 , KC_ALT_5 , KC_ALT_6 , _______ , _______ , _______ , _______ , _______ , _______ ,
         KC_ALT_0 , KC_ALT_1 , KC_ALT_2 , KC_ALT_3 , _______ , _______ , _______ , _______ , _______ , _______ ,
         _______  , _______  , _______  , XXXXXXX
     ),
