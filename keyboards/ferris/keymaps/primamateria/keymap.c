@@ -2,7 +2,8 @@
 
 enum ferris_layers {
     _QWERTY,
-    _SK,
+    _SKL,
+    _SKR,
     _NAV,
     _SYMBOLR,
     _SYMBOLL,
@@ -218,23 +219,23 @@ const uint32_t PROGMEM unicode_map[] = {
     [E_ACUTE_SMALL] = 0x00E9, // é
     [E_ACUTE_BIG]   = 0x00C9, // É
     [I_ACUTE_SMALL] = 0x00ED, // í
-    [I_ACUTE_BIG]   = 0x00CD, // áí TODO: shift on a is gone, split layer SK to left and right
+    [I_ACUTE_BIG]   = 0x00CD, // Í
     [L_CARON_SMALL] = 0x013E, // ľ
-    [L_CARON_BIG]   = 0x013D, // á
-    [N_CARON_SMALL] = 0x0148, //
-    [N_CARON_BIG]   = 0x0147, //
-    [O_ACUTE_SMALL] = 0x00F3, //
-    [O_ACUTE_BIG]   = 0x00D3, //
-    [S_CARON_SMALL] = 0x0161, //
-    [S_CARON_BIG]   = 0x0160, //
-    [T_CARON_SMALL] = 0x0165, //
-    [T_CARON_BIG]   = 0x0164, //
-    [U_ACUTE_SMALL] = 0x00FA, //
-    [U_ACUTE_BIG]   = 0x00DA, //
-    [Y_ACUTE_BIG]   = 0x00DD, //
-    [Y_ACUTE_SMALL] = 0x00FD, //
-    [Z_CARON_SMALL] = 0x017D, //
-    [Z_CARON_BIG]   = 0x017E, //
+    [L_CARON_BIG]   = 0x013D, // Ľ
+    [N_CARON_SMALL] = 0x0148, // ň
+    [N_CARON_BIG]   = 0x0147, // Ň
+    [O_ACUTE_SMALL] = 0x00F3, // ó
+    [O_ACUTE_BIG]   = 0x00D3, // Ó
+    [S_CARON_SMALL] = 0x0161, // š
+    [S_CARON_BIG]   = 0x0160, // Š
+    [T_CARON_SMALL] = 0x0165, // ť
+    [T_CARON_BIG]   = 0x0164, // Ť
+    [U_ACUTE_SMALL] = 0x00FA, // ú
+    [U_ACUTE_BIG]   = 0x00DA, // Ú
+    [Y_ACUTE_BIG]   = 0x00DD, // ý
+    [Y_ACUTE_SMALL] = 0x00FD, // Ý
+    [Z_CARON_SMALL] = 0x017E, // ž
+    [Z_CARON_BIG]   = 0x017D, // Ž
 };
 
 #define   KC_SYMBOLR_F    LT(_SYMBOLR,KC_F)
@@ -246,8 +247,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #define   KC_WM_NO        LT(_WM,KC_NO)
 #define   KC_FKEYS_S      LT(_FKEYS,KC_S)
 #define   KC_NVIM_D       LT(_NVIM,KC_D)
-#define   KC_SK_V         LT(_SK,KC_V)
-#define   KC_SK_M         LT(_SK,KC_M)
+#define   KC_SKR_V        LT(_SKR,KC_V)
+#define   KC_SKL_M        LT(_SKL,KC_M)
 
 #define   KC_CTLR_X       LCTL_T(KC_X)
 #define   KC_CTLR_DOT     LCTL_T(KC_DOT)
@@ -279,21 +280,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_Q          , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
         KC_SHIFT_A    , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
-        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_SK_V      , KC_B , KC_N , KC_SK_M      , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
+        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_SKR_V     , KC_B , KC_N , KC_SKL_M     , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
         KC_TMUX_NO    , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_NO
     ),
-    [_SK] = LAYOUT(
+    [_SKL] = LAYOUT(
         // row 1
         _______,
         _______,
         UP(E_ACUTE_SMALL, E_ACUTE_BIG),
         _______,
         UP(T_CARON_SMALL, T_CARON_BIG),
-        UP(Y_ACUTE_SMALL, Y_ACUTE_BIG),
-        UP(U_ACUTE_SMALL, U_ACUTE_BIG),
-        UP(I_ACUTE_SMALL, I_ACUTE_BIG),
-        UP(O_ACUTE_SMALL, O_ACUTE_BIG),
-        _______,
+        _______, _______, _______, _______, _______,
 
         // row 2
         UP(A_ACUTE_SMALL, A_ACUTE_BIG),
@@ -301,11 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         UP(D_CARON_SMALL, D_CARON_BIG),
         _______,
         _______,
-        _______,
-        _______,
-        _______,
-        UP(L_CARON_SMALL, L_CARON_BIG),
-        _______,
+        _______, _______, _______, _______, _______,
 
         // row 3
         UP(Z_CARON_SMALL, Z_CARON_BIG),
@@ -313,6 +306,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         UP(C_CARON_SMALL, C_CARON_BIG),
         _______,
         _______,
+        _______, _______, _______, _______, _______,
+
+        // row 4
+        _______    , _______    , _______ , _______
+    ),
+    [_SKR] = LAYOUT(
+        // row 1
+        _______, _______, _______, _______, _______,
+        UP(Y_ACUTE_SMALL, Y_ACUTE_BIG),
+        UP(U_ACUTE_SMALL, U_ACUTE_BIG),
+        UP(I_ACUTE_SMALL, I_ACUTE_BIG),
+        UP(O_ACUTE_SMALL, O_ACUTE_BIG),
+        _______,
+
+        // row 2
+        _______, _______, _______, _______, _______,
+        _______,
+        _______,
+        _______,
+        UP(L_CARON_SMALL, L_CARON_BIG),
+        _______,
+
+        // row 3
+        _______, _______, _______, _______, _______,
         UP(N_CARON_SMALL, N_CARON_BIG),
         _______,
         _______,
