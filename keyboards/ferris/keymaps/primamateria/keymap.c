@@ -2,8 +2,8 @@
 
 enum ferris_layers {
     _QWERTY,
-    _SKL,
-    _SKR,
+    _UNIL,
+    _UNIR,
     _NAV,
     _SYMBOLR,
     _SYMBOLL,
@@ -206,6 +206,20 @@ enum unicode_names {
     Y_ACUTE_SMALL,
     Z_CARON_SMALL,
     Z_CARON_BIG,
+
+    A_DIAERESIS_SMALL,
+    A_DIAERESIS_BIG,
+    U_DIAERESIS_SMALL,
+    U_DIAERESIS_BIG,
+    O_DIAERESIS_SMALL,
+    O_DIAERESIS_BIG,
+    O_CIRCUMFLEX_SMALL,
+    O_CIRCUMFLEX_BIG,
+    S_SHARP_SMALL,
+    S_SHARP_BIG,
+    SOFT_HYPHEN,
+    NO_BREAK,
+    N_DASH,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -236,6 +250,20 @@ const uint32_t PROGMEM unicode_map[] = {
     [Y_ACUTE_SMALL] = 0x00FD, // Ý
     [Z_CARON_SMALL] = 0x017E, // ž
     [Z_CARON_BIG]   = 0x017D, // Ž
+
+    [A_DIAERESIS_SMALL] = 0x00E4,
+    [A_DIAERESIS_BIG] = 0x00C4,
+    [U_DIAERESIS_SMALL] = 0x00FC,
+    [U_DIAERESIS_BIG] = 0x00DC,
+    [O_DIAERESIS_SMALL] = 0x00F6,
+    [O_DIAERESIS_BIG] = 0x00D6,
+    [O_CIRCUMFLEX_SMALL] = 0x00F3,
+    [O_CIRCUMFLEX_BIG] = 0x00D4,
+    [S_SHARP_SMALL] = 0x00DF,
+    [S_SHARP_BIG] = 0x1E9E,
+    [SOFT_HYPHEN] = 0x00AD,
+    [NO_BREAK] = 0x00A0,
+    [N_DASH] = 0x2013,
 };
 
 #define   KC_SYMBOLR_F    LT(_SYMBOLR,KC_F)
@@ -283,56 +311,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_SKR_V     , KC_B , KC_N , KC_SKL_M     , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
         KC_TMUX_NO    , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_NO
     ),
-    [_SKL] = LAYOUT(
+    [_UNIL] = LAYOUT(
         // row 1
         _______,
-        _______,
-        UP(E_ACUTE_SMALL, E_ACUTE_BIG),
-        _______,
-        UP(T_CARON_SMALL, T_CARON_BIG),
+        UP(L_CARON_SMALL, L_CARON_BIG),
+        UP(S_CARON_SMALL, S_CARON_BIG),
+        UP(C_CARON_SMALL, C_CARON_BIG),
+        UP(U_ACUTE_SMALL, U_ACUTE_BIG),
         _______, _______, _______, _______, _______,
 
         // row 2
-        UP(A_ACUTE_SMALL, A_ACUTE_BIG),
-        UP(S_CARON_SMALL, S_CARON_BIG),
-        UP(D_CARON_SMALL, D_CARON_BIG),
-        _______,
-        _______,
+        UP(N_CARON_SMALL, N_CARON_BIG),
+        UP(T_CARON_SMALL, T_CARON_BIG),
+        UP(Z_CARON_SMALL, Z_CARON_BIG),
+        UP(Y_ACUTE_SMALL, Y_ACUTE_BIG),
+        UP(O_ACUTE_SMALL, O_ACUTE_BIG),
         _______, _______, _______, _______, _______,
 
         // row 3
-        UP(Z_CARON_SMALL, Z_CARON_BIG),
         _______,
-        UP(C_CARON_SMALL, C_CARON_BIG),
-        _______,
-        _______,
+        UP(A_ACUTE_SMALL, A_ACUTE_BIG),
+        UP(I_ACUTE_SMALL, I_ACUTE_BIG),
+        UP(E_ACUTE_SMALL, E_ACUTE_BIG),
+        UP(D_CARON_SMALL, D_CARON_BIG),
         _______, _______, _______, _______, _______,
 
         // row 4
         _______    , _______    , _______ , _______
     ),
-    [_SKR] = LAYOUT(
+
+    [_UNIR] = LAYOUT(
         // row 1
         _______, _______, _______, _______, _______,
-        UP(Y_ACUTE_SMALL, Y_ACUTE_BIG),
-        UP(U_ACUTE_SMALL, U_ACUTE_BIG),
-        UP(I_ACUTE_SMALL, I_ACUTE_BIG),
-        UP(O_ACUTE_SMALL, O_ACUTE_BIG),
+        _______,
+        UP(A_DIAERESIS_SMALL, A_DIAERESIS_BIG),
+        UP(U_DIAERESIS_SMALL, U_DIAERESIS_BIG),
+        UP(O_DIAERESIS_SMALL, O_DIAERESIS_BIG),
         _______,
 
         // row 2
         _______, _______, _______, _______, _______,
         _______,
-        _______,
-        _______,
-        UP(L_CARON_SMALL, L_CARON_BIG),
+        SOFT_HYPHEN,
+        NO_BREAK,
+        N_DASH,
         _______,
 
         // row 3
         _______, _______, _______, _______, _______,
-        UP(N_CARON_SMALL, N_CARON_BIG),
         _______,
-        _______,
+        UP(O_CIRCUMFLEX_SMALL, O_CIRCUMFLEX_BIG),
+        UP(S_SHARP_SMALL, S_SHARP_BIG),
         _______,
         _______,
 
