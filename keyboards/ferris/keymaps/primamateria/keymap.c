@@ -251,19 +251,19 @@ const uint32_t PROGMEM unicode_map[] = {
     [Z_CARON_SMALL] = 0x017E, // ž
     [Z_CARON_BIG]   = 0x017D, // Ž
 
-    [A_DIAERESIS_SMALL] = 0x00E4,
-    [A_DIAERESIS_BIG] = 0x00C4,
-    [U_DIAERESIS_SMALL] = 0x00FC,
-    [U_DIAERESIS_BIG] = 0x00DC,
-    [O_DIAERESIS_SMALL] = 0x00F6,
-    [O_DIAERESIS_BIG] = 0x00D6,
-    [O_CIRCUMFLEX_SMALL] = 0x00F3,
-    [O_CIRCUMFLEX_BIG] = 0x00D4,
-    [S_SHARP_SMALL] = 0x00DF,
-    [S_SHARP_BIG] = 0x1E9E,
-    [SOFT_HYPHEN] = 0x00AD,
-    [NO_BREAK] = 0x00A0,
-    [N_DASH] = 0x2013,
+    [A_DIAERESIS_SMALL]  = 0x00E4, // ä
+    [A_DIAERESIS_BIG]    = 0x00C4, // Ä
+    [U_DIAERESIS_SMALL]  = 0x00FC, // ü
+    [U_DIAERESIS_BIG]    = 0x00DC, // Ü
+    [O_DIAERESIS_SMALL]  = 0x00F6, // ö
+    [O_DIAERESIS_BIG]    = 0x00D6, // Ö
+    [O_CIRCUMFLEX_SMALL] = 0x00F3, // ó
+    [O_CIRCUMFLEX_BIG]   = 0x00D4, // Ô
+    [S_SHARP_SMALL]      = 0x00DF, // ß
+    [S_SHARP_BIG]        = 0x1E9E, // ẞ
+    [SOFT_HYPHEN]        = 0x00AD, // ­
+    [NO_BREAK]           = 0x00A0, //  
+    [N_DASH]             = 0x2013, // –
 };
 
 #define   KC_SYMBOLR_F    LT(_SYMBOLR,KC_F)
@@ -275,8 +275,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #define   KC_WM_NO        LT(_WM,KC_NO)
 #define   KC_FKEYS_S      LT(_FKEYS,KC_S)
 #define   KC_NVIM_D       LT(_NVIM,KC_D)
-#define   KC_SKR_V        LT(_SKR,KC_V)
-#define   KC_SKL_M        LT(_SKL,KC_M)
+#define   KC_UNIR_V       LT(_UNIR,KC_V)
+#define   KC_UNIL_M       LT(_UNIL,KC_M)
 
 #define   KC_CTLR_X       LCTL_T(KC_X)
 #define   KC_CTLR_DOT     LCTL_T(KC_DOT)
@@ -308,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_Q          , KC_W       , KC_E          , KC_R         , KC_T , KC_Y , KC_U         , KC_I        , KC_O        , KC_P          ,
         KC_SHIFT_A    , KC_FKEYS_S , KC_NVIM_D     , KC_SYMBOLR_F , KC_G , KC_H , KC_SYMBOLL_J , KC_NAV_K    , KC_NUM_L    , KC_SHIFT_SCLN ,
-        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_SKR_V     , KC_B , KC_N , KC_SKL_M     , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
+        KC_Z          , KC_CTLR_X  , KC_ALT_C      , KC_UNIR_V    , KC_B , KC_N , KC_UNIL_M    , KC_ALT_COMM , KC_CTLR_DOT , KC_SLSH       ,
         KC_TMUX_NO    , KC_BSPC    , KC_ESCAPE_SPC , KC_WM_NO
     ),
     [_UNIL] = LAYOUT(
@@ -352,9 +352,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // row 2
         _______, _______, _______, _______, _______,
         _______,
-        SOFT_HYPHEN,
-        NO_BREAK,
-        N_DASH,
+        UM(SOFT_HYPHEN),
+        UM(NO_BREAK),
+        UM(N_DASH),
         _______,
 
         // row 3
