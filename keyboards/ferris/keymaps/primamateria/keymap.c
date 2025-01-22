@@ -100,7 +100,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SS_TESC:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("]["));
+                SEND_STRING(SS_LCTL("\\n"));
             }
             break;
 
